@@ -4,15 +4,33 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios  from "axios";
+import { signIn } from "next-auth/react";
 
-export default function Home() {
+export default function login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>" ,username,password);
 
   const login = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await signIn("credentials", {
+        username, password, redirect : false,
+      });
+
+      if (res.error) {
+        return setError("Invalid username or password");
+      }
+
+      router.replace("/home");
+    } catch (error) {
+      setError("Invalid username or password");
+      console.log(error)
+    }
+  }
+
+  const jsonwebtokenLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/api/login", {
