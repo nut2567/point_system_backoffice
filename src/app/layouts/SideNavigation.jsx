@@ -14,7 +14,7 @@ export default function Layout({ mobile, sidebarOpen }) {
   const router = useRouter();
   const toggleSidebar = () => {
     // ฟังก์ชันสำหรับเปิด/ปิด Sidebar
-    setSidebarOpen2(!sidebarOpen);
+    setSidebarOpen2(!sidebarOpen2);
   };
 
 
@@ -41,18 +41,17 @@ export default function Layout({ mobile, sidebarOpen }) {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        signOut()
+        signOut({ callbackUrl: '/'})
 
         // เปลี่ยนเส้นทางกลับไปยังหน้าล็อกอิน
-        router.replace("/");
       }
     });
   }
 
   return (
     <div >
-      <div className={`fixed inset-0 w-64 bg-slate-800 text-white flex flex-col transform  
-      duration-300 transition-all ${!sidebarOpen2 && mobile ? '-translate-x-full' : ''}
+      <div className={`z-50 fixed inset-0 w-64 bg-slate-800 text-white flex flex-col transform  
+      duration-600 transition-all ${!sidebarOpen2 && mobile ? '-translate-x-full' : ''}
   ${sidebarOpen2 || !mobile ? 'translate-x-0' : ''}`}   >
         <div className="p-4 text-lg font-bold text-center">
           <div className="border shadow-xl border-indigo-500/50"><p>Back Office</p><p>Points System</p> </div></div>
