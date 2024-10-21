@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
           setLayout(<>{children}</>);
         }
       });
-  }, [pathname]);
+  }, [pathname, children]);
 
   // ถ้าเป็น 404 จะไม่ใช้ Layout และแสดงข้อความว่าไม่พบหน้า
 

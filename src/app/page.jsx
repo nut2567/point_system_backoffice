@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import axios  from "axios";
 import { signIn } from "next-auth/react";
 
-export default function login() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -39,7 +39,7 @@ export default function login() {
       });
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>" , res);
 
-      if (res.statusText != 'OK') {
+      if (res.statusText != "OK") {
         throw new Error("Login failed");
       }
       localStorage.setItem("token", res.token);
@@ -120,7 +120,7 @@ export default function login() {
               >Forgot your password?</a
               >
               <p className="mt-2 text-gray-600">
-                Don't have an account?
+                Don&apos;t have an account?
                 <a href="#" className="text-blue-500 hover:underline">Sign Up</a>
               </p>
             </div>

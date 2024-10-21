@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
+import Image from "next/image";
 export default function MyComponent() {
     const [user, setUser] = useState(null); // ใช้ useState เพื่อจัดเก็บข้อมูล user
 
@@ -34,9 +35,15 @@ export default function MyComponent() {
                 <div>
                     <div className="card bg-base-100 w-96 shadow-xl">
                         <figure>
-                            <img
-                                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                                alt="Shoes" />
+                            <div className="">
+                                <Image
+                                    className=""
+                                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                                    alt="Shoes"
+                                    width={90}
+                                    height={18}
+                                    priority
+                                /></div>
                         </figure>
                         <div className="card-body">
                             <h2 className="card-title">Shoes!</h2>
@@ -49,21 +56,21 @@ export default function MyComponent() {
                     {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
                 </div>
             ) : (
-                
-                <div className="flex-col text-center flex items-center  justify-center h-dvh"><p>กำลังโหลดข้อมูล...</p>
-                <span className="loading loading-spinner loading-lg  text-info" ></span>
 
-                <div className="flex w-52 flex-col gap-4">
-                    <div className="flex items-center gap-4">
-                        <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-                        <div className="flex flex-col gap-4">
-                            <div className="skeleton h-4 w-20"></div>
-                            <div className="skeleton h-4 w-28"></div>
+                <div className="flex-col text-center flex items-center  justify-center h-dvh"><p>กำลังโหลดข้อมูล...</p>
+                    <span className="loading loading-spinner loading-lg  text-info" ></span>
+
+                    <div className="flex w-52 flex-col gap-4">
+                        <div className="flex items-center gap-4">
+                            <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
+                            <div className="flex flex-col gap-4">
+                                <div className="skeleton h-4 w-20"></div>
+                                <div className="skeleton h-4 w-28"></div>
+                            </div>
                         </div>
+                        <div className="skeleton h-32 w-full"></div>
                     </div>
-                    <div className="skeleton h-32 w-full"></div>
                 </div>
-            </div>
             )}
         </div>
     );
