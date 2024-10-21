@@ -1,4 +1,10 @@
 <<<<<<< HEAD
+
+https://point-system-backoffice-20qtfsqzc-nutdeploys-projects.vercel.app/
+admin
+1234
+
+
 # point_system_backoffice
 point_system_backoffice nextjs
 =======
