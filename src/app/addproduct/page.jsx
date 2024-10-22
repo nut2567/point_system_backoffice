@@ -10,7 +10,7 @@ export default function MyComponent() {
     async function getusers() {
         try {
             // ใช้ await รอให้ axios.get() ดึงข้อมูลเสร็จสิ้น
-            const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/addproduct`);
+            const resp = await axios.get(`/api/addproduct`);
 
             // ตรวจสอบ response ใน console
             console.log(resp);

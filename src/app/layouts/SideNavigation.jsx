@@ -41,7 +41,7 @@ export default function Layout({ mobile, sidebarOpen }) {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        signOut({ callbackUrl: '/'})
+        signOut({ callbackUrl: '/' })
 
         // เปลี่ยนเส้นทางกลับไปยังหน้าล็อกอิน
       }
@@ -106,6 +106,7 @@ export default function Layout({ mobile, sidebarOpen }) {
         </nav>
         <div className="fixed bottom-0 flex justify-center w-full"> powered by
           <div className=" ml-2">
+            <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
             <Image
               className="dark:invert"
               src="https://nextjs.org/icons/next.svg"
@@ -113,7 +114,10 @@ export default function Layout({ mobile, sidebarOpen }) {
               width={90}
               height={18}
               priority
-            /></div></div>
+            />
+          </a>
+          </div>
+        </div>
 
       </div>
       {/*  Hamburger Icon for Mobile  */}
