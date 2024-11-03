@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 
-https://point-system-backoffice-git-main-nutdeploys-projects.vercel.app?_vercel_share=i5ufNHblADfmqAtt8zhWnTkOS2klEccr
+https://point-system-backoffice.vercel.app/
 admin
 1234
 
