@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 
-https://point-system-backoffice-20qtfsqzc-nutdeploys-projects.vercel.app/
+https://point-system-backoffice.vercel.app/
 admin
 1234
 
