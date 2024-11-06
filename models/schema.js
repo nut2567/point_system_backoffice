@@ -1,13 +1,15 @@
-import Mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const useSchema = new Schema({
-    title: String,
-    content: String,
+    name: String,
+    description: String,
+    availability: Boolean,
+    expiryDate: String,
+    points: Number,
     createdAt: {
         type: Date,
         default: Date.now
-    }, Image: String,
+    }, image: String,
 });
-
-const post = mongoose.models.post || mongoose.model("post", useSchema);
-export default post;
+const Post =   mongoose.models.Post || mongoose.model("Post", useSchema);
+export default Post;

@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        domains: ['img.daisyui.com'], // เพิ่ม hostname ที่คุณต้องการ
+        domains: ['img.daisyui.com','fastly.picsum.photos'], // เพิ่ม hostname ที่ต้องการ
     },
 };
 

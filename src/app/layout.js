@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
   const [layout, setLayout] = useState(null
   );
   // ไม่ใช้ Layout สำหรับหน้าแรก (หรือหน้าล็อกอิน)
-  console.log("pathname", pathname);
+  // console.log("pathname", pathname);
   useEffect(() => {
     // ตรวจสอบการเรียก API ว่าเส้นทางนั้นเป็น 404 หรือไม่
     fetch(pathname)

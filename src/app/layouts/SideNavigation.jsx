@@ -76,6 +76,13 @@ export default function Layout({ mobile, sidebarOpen }) {
             </div>
           </div></Link></button>
 
+          <button><Link href="/product">
+            <div className="flex items-center p-2 hover:bg-gray-700 rounded"
+            ><div className="flex">
+                <i className="material-icons items-center flex mr-2">inventory_2</i>
+                <span className="ml-2">Product</span>
+
+              </div></div></Link></button>
 
           <button><Link href="/profile"><div className="flex items-center p-2 hover:bg-gray-700 rounded"
           ><div className="flex">
@@ -85,13 +92,6 @@ export default function Layout({ mobile, sidebarOpen }) {
             </div>
           </div></Link></button>
 
-          <button><Link href="/dashboard">
-            <div className="flex items-center p-2 hover:bg-gray-700 rounded"
-            ><div className="flex">
-                <i className="material-icons items-center flex mr-2">dashboard</i>
-                <span className="ml-2">Dashboard</span>
-
-              </div></div></Link></button>
 
           <button onClick={logout}>
             <div className="flex items-center p-2 hover:bg-gray-700 rounded "
