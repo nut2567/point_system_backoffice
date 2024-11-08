@@ -1,5 +1,5 @@
 "use client";
-
+import DelBtn from "./deleteBtn";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -14,6 +14,9 @@ export default function MyComponent() {
     try {
       // ใช้ await รอให้ axios.get() ดึงข้อมูลเสร็จสิ้น
       const resp = await axios.get(`/api/getproduct`);
+      // await axios.get(
+      //   `https://pointsystemexpress-production.up.railway.app/Product`
+      // );
 
       // ตรวจสอบ response ใน console
       console.log(resp);
@@ -76,20 +79,37 @@ export default function MyComponent() {
     return <p>No product data available</p>; // Display if no product data
   }
 
+  const checkImageValidity = async (url) => {
+    try {
+      if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
+        const response = await fetch(url, { method: "HEAD" });
+        if (
+          response.ok &&
+          response.headers.get("Content-Type").includes("image")
+        ) {
+          return url;
+        }
+      }
+      return `/images/150.png`; // ใช้ภาพสำรองเสมอหากลิงก์ไม่ถูกต้อง
+    } catch (error) {
+      console.error("Error checking image URL:", error);
+      return `/images/150.png`;
+    }
+  };
+
   return (
     <div className="w-full p-10">
       {/* แสดงข้อมูล user หรือข้อความถ้าไม่มีข้อมูล */}
 
       <div>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">
-            <Link href="/addproduct">
-              <div className="flex items-center justify-center rounded">
-                <i className="material-icons mr-2">stars</i>
-                <span className="ml-2">Add product</span>
-              </div>
-            </Link>
-          </button>
+          <Link href="/addproduct">
+            <div className="btn btn-warning flex items-center justify-center rounded">
+              <i className="material-icons mr-2">stars</i>
+              <span className="ml-2">Add product</span>
+            </div>
+          </Link>
+
           <button className="btn btn-info" onClick={getProduct}>
             <div className="flex items-center justify-center rounded">
               <i className="material-icons mr-2">restart_alt</i>
@@ -101,18 +121,19 @@ export default function MyComponent() {
           {product.map((item, index) => (
             <div className="card bg-base-100 w-96 shadow-xl" key={item._id}>
               <figure>
-                <div className="h-[auto] w-[100%]">
+                <div className="relative h-[300px] w-[100%]">
+                  {/* กำหนดความสูงที่แน่นอน */}
                   <Image
-                    className=""
                     src={item.image}
                     alt="Shoes"
-                    layout="responsive"
-                    width={300} // Aspect ratio is maintained based on these dimensions
-                    height={300}
+                    fill
                     priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    style={{ objectFit: "cover" }} // ใช้ 'cover' หรือ 'contain' เพื่อรักษาอัตราส่วน
                   />
                 </div>
               </figure>
+
               <div
                 className="card-body text-slate-50"
                 style={{ boxShadow: "#0097ff10 0px -10px 60px inset" }}
@@ -132,20 +153,13 @@ export default function MyComponent() {
                 <p>description : {item.description}</p>
                 <p>points : {item.points}</p>
               </div>
-              <button className="btn btn-warning ">
-                <Link href={`/editproduct?${item._id}`}>
-                  <div className="flex items-center justify-center rounded">
-                    <i className="material-icons mr-2">edit</i>
-                    <span className="ml-2">Edit</span>
-                  </div>
-                </Link>
-              </button>
-              <button className="btn btn-error">
-                <div className="flex items-center justify-center rounded">
-                  <i className="material-icons mr-2">delete_forever</i>
-                  <span className="ml-2">Delete</span>
+              <Link href={`/addproduct?product=${item._id}`}>
+                <div className="btn btn-warning flex items-center justify-center rounded">
+                  <i className="material-icons mr-2">edit</i>
+                  <span className="ml-2">Edit</span>
                 </div>
-              </button>
+              </Link>
+              <DelBtn id={item._id} afterDel={getProduct} />
             </div>
           ))}
         </div>

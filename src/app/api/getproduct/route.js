@@ -3,10 +3,13 @@ import { connetMongoDB } from '@lib/mongodb';
 import Post from '@models/schema';
 import { NextResponse } from 'next/server';
 
+import mongoose from 'mongoose';
+
+if (mongoose.connection.readyState === 0) {
+  connetMongoDB();
+}
 export async function GET() {
-  
-  await connetMongoDB();
-  
+    
   const Product = await Post.find({})
   const time = new Date();
    
