@@ -79,24 +79,6 @@ export default function MyComponent() {
     return <p>No product data available</p>; // Display if no product data
   }
 
-  const checkImageValidity = async (url) => {
-    try {
-      if (url && (url.startsWith("http://") || url.startsWith("https://"))) {
-        const response = await fetch(url, { method: "HEAD" });
-        if (
-          response.ok &&
-          response.headers.get("Content-Type").includes("image")
-        ) {
-          return url;
-        }
-      }
-      return `/images/150.png`; // ใช้ภาพสำรองเสมอหากลิงก์ไม่ถูกต้อง
-    } catch (error) {
-      console.error("Error checking image URL:", error);
-      return `/images/150.png`;
-    }
-  };
-
   return (
     <div className="w-full p-10">
       {/* แสดงข้อมูล user หรือข้อความถ้าไม่มีข้อมูล */}

@@ -24,10 +24,15 @@ export const authOptions = {
     ],
     session: {
         strategy: "jwt",
+        maxAge: 60 * 60, // 1 ชั่วโมง
+    updateAge: 15 * 60, // ขยายเวลาอีก 15 นาทีเมื่อมีการใช้งาน
     },
     secret: process.env.SESSION_SECRET,
     pages: {
         signIn: "/",
+    },
+    jwt: {
+      maxAge: 60 * 3,
     },
     callbacks:{
        jwt : async ({token, user, account, profile, isNewUser}) => {
