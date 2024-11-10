@@ -13,13 +13,13 @@ export default function DelBtn({ id, afterDel }) {
       })
       .then((data) => {
         console.log("Product deleted successfully", data);
+        // Refresh the page to see the updated list
+        // window.location.reload();
+        afterDel();
       })
       .catch((error) => {
         console.error("Error deleting product:", error);
       });
-    // Refresh the page to see the updated list
-    // window.location.reload();
-    afterDel();
   };
 
   const handleDeleteClick = (e) => {

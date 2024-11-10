@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+import MongoDBConnect from "@/components/MongoDBConnect";
 import Image from "next/image";
 export default function MyComponent() {
   const [product, setProduct] = useState(null); // ใช้ useState เพื่อจัดเก็บข้อมูล user
@@ -22,8 +23,8 @@ export default function MyComponent() {
       console.log(resp);
       // Check if there is product data in the response
       // ตั้งค่า state ด้วยข้อมูลที่ได้จาก API
-      if (resp.data && resp.data.Product) {
-        setProduct(resp.data.Product); // Set product data
+      if (resp.data && resp.data.product) {
+        setProduct(resp.data.product); // Set product data
       } else {
         setProduct(null); // No product data found
       }
@@ -84,20 +85,26 @@ export default function MyComponent() {
       {/* แสดงข้อมูล user หรือข้อความถ้าไม่มีข้อมูล */}
 
       <div>
-        <div className="card-actions justify-end">
-          <Link href="/addproduct">
-            <div className="btn btn-warning flex items-center justify-center rounded">
-              <i className="material-icons mr-2">stars</i>
-              <span className="ml-2">Add product</span>
-            </div>
-          </Link>
+        <div className="flex items-center justify-center  bg-white">
+          <div className="w-[75%]">
+            <MongoDBConnect />
+          </div>
 
-          <button className="btn btn-info" onClick={getProduct}>
-            <div className="flex items-center justify-center rounded">
-              <i className="material-icons mr-2">restart_alt</i>
-              <span className="ml-2">Reload</span>
-            </div>
-          </button>
+          <div className="w-[25%] card-body justify-end items-center">
+            <Link href="/addproduct">
+              <div className="btn btn-warning flex items-center justify-center rounded">
+                <i className="material-icons mr-2">stars</i>
+                <span className="ml-2">Add product</span>
+              </div>
+            </Link>
+
+            <button className="btn btn-info" onClick={getProduct}>
+              <div className="flex items-center justify-center rounded">
+                <i className="material-icons mr-2">restart_alt</i>
+                <span className="ml-2">Reload</span>
+              </div>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
           {product.map((item, index) => (

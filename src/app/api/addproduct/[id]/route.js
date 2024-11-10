@@ -18,10 +18,15 @@ export async function GET(req, { params }) {
 
 export async function POST(req, { params }) {
   const { id } = params;
+  const time = new Date();
   const { name, image, points, expiryDate, description } = await req.json();
-
+  const existingPost = await Post.findOne({ name });
+  console.log(existingPost)
+  if (existingPost&&existingPost._id.toString() !==id) {
+      // ถ้าชื่อสินค้าซ้ำ ให้ส่งข้อความแจ้งเตือนกลับไป
+  return NextResponse.json({message:"สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น",time},{status: 200})
+  }
   await Post.findByIdAndUpdate(id, { name, image, points, expiryDate, description });
 
-  const time = new Date();
   return NextResponse.json({ message: "Success update product", time }, { status: 200 });
 }

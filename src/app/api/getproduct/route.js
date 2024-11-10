@@ -10,8 +10,8 @@ if (mongoose.connection.readyState === 0) {
 }
 export async function GET() {
     
-  const Product = await Post.find({})
+  const product = await Post.find({})
   const time = new Date();
    
-  return NextResponse.json({message:"Success",Product,time},{status: 200})
+  return NextResponse.json({message:"Success",product,time},{status: 200})
   }

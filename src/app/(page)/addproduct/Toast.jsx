@@ -6,7 +6,7 @@ const Toast = ({ message, show, onClose }) => {
     if (show) {
       const timer = setTimeout(() => {
         onClose(); // ทำให้ข้อความเลือนหายไปหลัง 5 วินาที
-      }, 500);
+      }, 3000);
 
       return () => clearTimeout(timer); // ล้าง timer เมื่อ component ถูก unmount หรือเมื่อ show เปลี่ยนค่า
     }

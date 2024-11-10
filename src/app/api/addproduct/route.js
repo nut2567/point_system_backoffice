@@ -9,6 +9,7 @@ if (mongoose.connection.readyState === 0) {
 }
 
   export async function POST(req) {
+    
     const {
       name,
       image,
@@ -16,9 +17,15 @@ if (mongoose.connection.readyState === 0) {
       expiryDate,
       description,
     } = await req.json();
+    // ตรวจสอบว่ามีสินค้าชื่อนี้อยู่แล้วหรือไม่
+  const time = new Date();
+    const existingPost = await Post.findOne({ name });
+    if (existingPost) {
+        // ถ้าชื่อสินค้าซ้ำ ให้ส่งข้อความแจ้งเตือนกลับไป
+    return NextResponse.json({message:"สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น",time},{status: 200})
+    }
    await Post.create({name, image, points, expiryDate, description})
    
-  const time = new Date();
     return NextResponse.json({message:"Success add product",time},{status: 200})
   }
 
