@@ -2,8 +2,10 @@
 export default function WrapLoading() {
   return (
     <div className="flex-col text-center flex items-center  justify-center h-dvh">
-      <p>กำลังโหลดข้อมูล...</p>
-      <span className="loading loading-spinner loading-lg  text-info"></span>
+      <p>
+        กำลังโหลดข้อมูล
+        <span className="loading loading-spinner loading-lg  text-info"></span>
+      </p>
 
       <div className="flex w-52 flex-col gap-4">
         <div className="flex items-center gap-4">
