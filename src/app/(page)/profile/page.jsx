@@ -1,7 +1,7 @@
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 
 const fetchUserProfile = async () => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   return {
     id: "user_123",
     name: "John Doe",
@@ -9,7 +9,7 @@ const fetchUserProfile = async () => {
     email: "john.doe@example.com",
     phone: "+1234567890",
     location: "New York, USA",
-    session: session,
+    session: "session",
     projects: [
       {
         id: "project_1",
