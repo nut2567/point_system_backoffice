@@ -41,7 +41,7 @@ export default function MyComponent({ searchParams }) {
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
-          setIsLoading(false);
+          setErrorState(error);
         });
     }
   }, [idProduct]);
@@ -95,6 +95,7 @@ export default function MyComponent({ searchParams }) {
           setErrorState("สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
           return;
         }
+        setErrorState("สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
         setIsModalOpen(true);
         setIsLoading(false);
       })
@@ -114,8 +115,11 @@ export default function MyComponent({ searchParams }) {
       {isLoading && (
         <dialog id="loading_modal" className="modal modal-open">
           <div className="modal-box text-center">
-            <h3 className="font-bold text-lg text-white">กำลังโหลดข้อมูล...</h3>
-            <span className="loading loading-spinner loading-lg text-info"></span>
+            <h3 className="font-bold text-[30px] text-white mb-10 items-end flex">
+              กำลังโหลดข้อมูล
+              <span className="loading loading-dots loading-md"></span>
+            </h3>
+            <span className="loading loading-spinner w-24 text-info"></span>
           </div>
         </dialog>
       )}

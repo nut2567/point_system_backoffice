@@ -6,41 +6,44 @@ import Link from "next/link";
 
 import MongoDBConnect from "@/components/MongoDBConnect";
 import Image from "next/image";
+
+export async function getProduct() {
+  // ใช้ await รอให้ axios.get() ดึงข้อมูลเสร็จสิ้น
+  const resp = await axios.get(`/api/getproduct`);
+  // await axios.get(
+  //   `https://pointsystemexpress-production.up.railway.app/Product`
+  // );
+
+  // ตรวจสอบ response ใน console
+  console.log(resp);
+  // Check if there is product data in the response
+  // ตั้งค่า state ด้วยข้อมูลที่ได้จาก API
+  if (resp.data && resp.data.product) {
+    return resp.data.product; // Set product data
+  } else {
+    return null; // No product data found
+  }
+}
+
 export default function MyComponent() {
   const [product, setProduct] = useState(null); // ใช้ useState เพื่อจัดเก็บข้อมูล user
   const [isLoading, setIsLoading] = useState(true); // Tracks loading state
   const [error, setError] = useState(null); // Tracks errors if they occur
 
-  async function getProduct() {
+  const fetchProduct = async () => {
     try {
-      // ใช้ await รอให้ axios.get() ดึงข้อมูลเสร็จสิ้น
-      const resp = await axios.get(`/api/getproduct`);
-      // await axios.get(
-      //   `https://pointsystemexpress-production.up.railway.app/Product`
-      // );
-
-      // ตรวจสอบ response ใน console
-      console.log(resp);
-      // Check if there is product data in the response
-      // ตั้งค่า state ด้วยข้อมูลที่ได้จาก API
-      if (resp.data && resp.data.product) {
-        setProduct(resp.data.product); // Set product data
-      } else {
-        setProduct(null); // No product data found
-      }
-      console.log(product);
+      const productData = await getProduct(); // รอการดึงข้อมูลจาก getProduct
+      setProduct(productData);
     } catch (err) {
-      // ถ้ามีข้อผิดพลาดให้แสดง error ใน console
       console.error(err);
-      setError("Failed to load product data"); // Set error message
+      setError("Failed to load product data");
     } finally {
-      setIsLoading(false); // Loading complete
+      setIsLoading(false);
     }
-  }
-
-  // ใช้ useEffect เพื่อเรียก getusers() เมื่อ component ถูก mount
+  };
+  // ใช้ useEffect เพื่อเรียก เมื่อ component ถูก mount
   useEffect(() => {
-    getProduct();
+    fetchProduct(); // เรียกใช้ฟังก์ชันดึงข้อมูล
   }, []); // [] เพื่อให้ฟังก์ชันทำงานแค่ครั้งเดียวเมื่อ component mount
 
   const formattedTime = (time) => {
@@ -50,27 +53,6 @@ export default function MyComponent() {
 
     return { hours, minutes, seconds };
   };
-
-  // Conditional rendering based on loading, error, and product states
-  if (isLoading) {
-    return (
-      <div className="flex-col text-center flex items-center  justify-center h-dvh">
-        <p>กำลังโหลดข้อมูล...</p>
-        <span className="loading loading-spinner loading-lg  text-info"></span>
-
-        <div className="flex w-52 flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
-            <div className="flex flex-col gap-4">
-              <div className="skeleton h-4 w-20"></div>
-              <div className="skeleton h-4 w-28"></div>
-            </div>
-          </div>
-          <div className="skeleton h-32 w-full"></div>
-        </div>
-      </div>
-    ); // Display while loading
-  }
 
   if (error) {
     return <p>{error}</p>; // Display if an error occurred
@@ -127,6 +109,7 @@ export default function MyComponent() {
                 className="card-body text-slate-50"
                 style={{ boxShadow: "#0097ff10 0px -10px 60px inset" }}
               >
+                <h2 className="card-title">id : {item._id}</h2>
                 <h2 className="card-title">name : {item.name}</h2>
                 <p>
                   createdAt :{" "}
@@ -148,7 +131,7 @@ export default function MyComponent() {
                   <span className="ml-2">Edit</span>
                 </div>
               </Link>
-              <DelBtn id={item._id} afterDel={getProduct} />
+              <DelBtn id={item._id} afterDel={fetchProduct} />
             </div>
           ))}
         </div>
