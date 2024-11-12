@@ -53,18 +53,13 @@ export default function MyComponent({ searchParams }) {
     setIsLoading(false);
   };
 
-  const checkImageValidity = async (url) => {
-    try {
-      if (url.startsWith("http://") || url.startsWith("https://")) {
-        const response = await fetch(url, { method: "HEAD" });
-        return (
-          response.ok && response.headers.get("Content-Type").includes("image")
-        );
-      }
-    } catch (error) {
-      console.error("Invalid image URL:", error);
-    }
-    return false;
+  const checkImageValidity = (url) => {
+    // Regular expression to check if URL ends with common image file extensions
+    const imageRegex = /\.(jpeg|jpg|gif|png|bmp|webp)$/i;
+    return (
+      imageRegex.test(url) &&
+      (url.startsWith("http://") || url.startsWith("https://"))
+    );
   };
 
   // ใช้ฟังก์ชันใหม่ใน formSubmitAddProduct
@@ -80,7 +75,7 @@ export default function MyComponent({ searchParams }) {
     }
 
     // ตรวจสอบ URL ของรูปภาพ
-    if (!(await checkImageValidity(image))) {
+    if (await checkImageValidity(image)) {
       setErrorState("Invalid image URL");
       return;
     }
@@ -92,12 +87,11 @@ export default function MyComponent({ searchParams }) {
         if (
           response.data.message === "สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น"
         ) {
-          setErrorState("สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
+          setErrorState(response.data.message);
           return;
         }
-        setErrorState("สินค้าชื่อนี้มีอยู่แล้ว กรุณาใช้ชื่ออื่น");
+        setErrorState("");
         setIsModalOpen(true);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error submitting data:", error);
