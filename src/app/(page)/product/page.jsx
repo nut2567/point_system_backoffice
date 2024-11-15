@@ -58,7 +58,7 @@ export default function MyComponent() {
     return <p>{error}</p>; // Display if an error occurred
   }
 
-  if (!product) {
+  if (product.length === 0) {
     return <p>No product data available</p>; // Display if no product data
   }
 
