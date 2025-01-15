@@ -26,7 +26,7 @@ export async function getProduct() {
 }
 
 export default function MyComponent() {
-  const [product, setProduct] = useState(null); // ใช้ useState เพื่อจัดเก็บข้อมูล user
+  const [product, setProduct] = useState([]); // ใช้ useState เพื่อจัดเก็บข้อมูล user
   const [isLoading, setIsLoading] = useState(true); // Tracks loading state
   const [error, setError] = useState(null); // Tracks errors if they occur
 
@@ -57,10 +57,10 @@ export default function MyComponent() {
   if (error) {
     return <p>{error}</p>; // Display if an error occurred
   }
-
   if (product.length === 0) {
     return <p>No product data available</p>; // Display if no product data
   }
+
 
   return (
     <div className="w-full p-10">
